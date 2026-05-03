@@ -60,9 +60,13 @@ async function updateReleaseMd(newVersion, lastTag, commits, owner, repo) {
 
   if (!breaking.length && !features.length && !fixes.length && !maintenance.length) {
     content += `## Changes\n\n`
+    // groupCommits catch-all routes every commit to `fixes`, so when commits
+    // is non-empty the guard above is never true — this loop body is unreachable.
+    /* istanbul ignore next */
     for (const { subject, hash } of commits) {
       content += `- ${subject} ([${hash.slice(0, 7)}](${repoUrl}/commit/${hash}))\n`
     }
+    /* istanbul ignore else */
     if (!commits.length) content += '- Minor updates\n'
     content += '\n'
   }

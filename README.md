@@ -363,7 +363,15 @@ tag-release/
 │   ├── files.js                  # Version file updater (package.json, pyproject.toml, etc.)
 │   ├── readme.js                 # README.md shields.io badge upsert
 │   ├── release.js                # RELEASE.md writer
-│   └── contributors.js           # CONTRIBUTORS.md writer
+│   ├── contributors.js           # CONTRIBUTORS.md writer
+│   └── __tests__/
+│       ├── git.test.js
+│       ├── version.test.js
+│       ├── changelog.test.js
+│       ├── files.test.js
+│       ├── readme.test.js
+│       ├── release.test.js
+│       └── contributors.test.js
 ├── .github/
 │   ├── release.yml               # Default PR label → release category mapping
 │   └── workflows/
@@ -375,12 +383,69 @@ tag-release/
 
 ## Dependencies
 
-| Package | Purpose |
-|---|---|
-| `@actions/core` | Logging, input/output, and failure handling |
-| `@actions/exec` | Running git commands with output capture |
-| `@actions/github` | Octokit client for creating GitHub Releases |
-| `semver` | Semver parsing and increment logic |
+| Package | Type | Purpose |
+|---|---|---|
+| `@actions/core` | runtime | Logging, input/output, and failure handling |
+| `@actions/exec` | runtime | Running git commands with output capture |
+| `@actions/github` | runtime | Octokit client for creating GitHub Releases |
+| `semver` | runtime | Semver parsing and increment logic |
+| `jest` | dev | Test runner and coverage reporter |
+| `@vercel/ncc` | dev | Bundles the action to `dist/` for distribution |
+
+---
+
+## Testing
+
+Tests live alongside source in `src/__tests__/`, one file per module. Run them with:
+
+```bash
+npm test              # run all tests with coverage report
+npm run test:watch    # re-run on file changes during development
+```
+
+### Coverage
+
+The suite targets **100% coverage** on all six library modules. `src/index.js`
+(the action entry-point that orchestrates everything and calls the GitHub API)
+is excluded from collection — it is integration-tested via the action itself.
+
+```
+File             | Statements | Branches | Functions | Lines
+-----------------|------------|----------|-----------|-------
+changelog.js     |    100%    |   100%   |   100%    |  100%
+contributors.js  |    100%    |   100%   |   100%    |  100%
+files.js         |    100%    |   100%   |   100%    |  100%
+git.js           |    100%    |   100%   |   100%    |  100%
+readme.js        |    100%    |   100%   |   100%    |  100%
+release.js       |    100%    |   100%   |   100%    |  100%
+version.js       |    100%    |   100%   |   100%    |  100%
+```
+
+### Coverage annotations
+
+Two lines in `release.js` carry `/* istanbul ignore */` comments. Both are dead
+code paths that exist for defensive correctness but are structurally unreachable:
+
+| File | Annotation | Reason |
+|---|---|---|
+| `release.js` | `/* istanbul ignore next */` on the fallback `for` loop | `groupCommits` has a catch-all that routes every commit to `fixes`, so when `commits` is non-empty the all-groups-empty guard is never true |
+| `release.js` | `/* istanbul ignore else */` on `if (!commits.length)` | Same guard — the false branch (commits non-empty, all groups empty) is unreachable |
+
+The thresholds enforced by Jest (configured in `package.json`):
+
+```json
+"coverageThreshold": {
+  "global": {
+    "lines": 80,
+    "functions": 80,
+    "branches": 75,
+    "statements": 80
+  }
+}
+```
+
+Thresholds are intentionally set below 100% so a single untested edge case in
+a new module does not block CI while the author is iterating.
 
 ---
 
