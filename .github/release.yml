@@ -1,0 +1,42 @@
+# GitHub release note auto-categorization
+# https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes
+#
+# Override this file per-repo in .github/release.yml to customize categories.
+
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+      - skip-changelog
+  categories:
+    - title: ⚠️ Breaking Changes
+      labels:
+        - breaking-change
+        - breaking
+    - title: 🚀 Features
+      labels:
+        - feature
+        - enhancement
+        - new
+    - title: 🐛 Bug Fixes
+      labels:
+        - bug
+        - fix
+        - bugfix
+    - title: ⚡ Performance
+      labels:
+        - performance
+        - perf
+    - title: 🧹 Maintenance
+      labels:
+        - chore
+        - deps
+        - dependencies
+        - maintenance
+    - title: 📖 Documentation
+      labels:
+        - documentation
+        - docs
+    - title: 🔧 Other Changes
+      labels:
+        - "*"

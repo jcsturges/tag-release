@@ -1,0 +1,52 @@
+name: Tag & Release
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Usage: copy this file into .github/workflows/ of your target repository.
+# Then reference jcsturges/tag-release with a pinned tag or SHA.
+# ─────────────────────────────────────────────────────────────────────────────
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: >
+          Version bump type.
+          "auto" infers from Conventional Commits (feat → minor, fix → patch,
+          feat!/BREAKING CHANGE → major). Same-day tags always produce a patch
+          regardless of this choice.
+        required: false
+        default: auto
+        type: choice
+        options:
+          - auto
+          - major
+          - minor
+          - patch
+      dry_run:
+        description: >
+          Dry run — calculate and log the new version without creating commits,
+          tags, or GitHub Releases.
+        required: false
+        default: false
+        type: boolean
+
+# Prevent concurrent releases racing each other
+concurrency:
+  group: tag-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Tag & Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # create tags, commits, and GitHub Releases
+      pull-requests: read
+
+    steps:
+      - name: Run tag-release action
+        uses: jcsturges/tag-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version-type: ${{ inputs.version_type }}
+          dry-run: ${{ inputs.dry_run }}
