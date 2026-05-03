@@ -1,13 +1,13 @@
 'use strict'
 
-jest.mock('../git', () => ({
+jest.mock('../src/git', () => ({
   getLastTag: jest.fn(),
   getTagDate: jest.fn(),
   getCommitsSinceRef: jest.fn(),
 }))
 
-const { getLastTag, getTagDate, getCommitsSinceRef } = require('../git')
-const { parseConventionalCommit, highestBump, calculateVersion } = require('../version')
+const { getLastTag, getTagDate, getCommitsSinceRef } = require('../src/git')
+const { parseConventionalCommit, highestBump, calculateVersion } = require('../src/version')
 
 beforeEach(() => jest.clearAllMocks())
 

@@ -1,12 +1,12 @@
 'use strict'
 
-jest.mock('../git', () => ({
+jest.mock('../src/git', () => ({
   getAuthorStats: jest.fn(),
 }))
 
 const fs = require('fs')
-const { getAuthorStats } = require('../git')
-const { updateContributors } = require('../contributors')
+const { getAuthorStats } = require('../src/git')
+const { updateContributors } = require('../src/contributors')
 
 afterEach(() => {
   jest.clearAllMocks()

@@ -363,15 +363,15 @@ tag-release/
 │   ├── files.js                  # Version file updater (package.json, pyproject.toml, etc.)
 │   ├── readme.js                 # README.md shields.io badge upsert
 │   ├── release.js                # RELEASE.md writer
-│   ├── contributors.js           # CONTRIBUTORS.md writer
-│   └── __tests__/
-│       ├── git.test.js
-│       ├── version.test.js
-│       ├── changelog.test.js
-│       ├── files.test.js
-│       ├── readme.test.js
-│       ├── release.test.js
-│       └── contributors.test.js
+│   └── contributors.js           # CONTRIBUTORS.md writer
+├── tests/
+│   ├── git.test.js
+│   ├── version.test.js
+│   ├── changelog.test.js
+│   ├── files.test.js
+│   ├── readme.test.js
+│   ├── release.test.js
+│   └── contributors.test.js
 ├── .github/
 │   ├── release.yml               # Default PR label → release category mapping
 │   └── workflows/
@@ -396,7 +396,7 @@ tag-release/
 
 ## Testing
 
-Tests live alongside source in `src/__tests__/`, one file per module. Run them with:
+Tests live in a top-level `tests/` directory, one file per module. Run them with:
 
 ```bash
 npm test              # run all tests with coverage report

@@ -1,7 +1,7 @@
 'use strict'
 
 const fs = require('fs')
-const { updateChangelog } = require('../changelog')
+const { updateChangelog } = require('../src/changelog')
 
 // changelog.js does not import @actions/core, so no mock needed there.
 // We spy on fs methods so the module under test uses our fixtures.

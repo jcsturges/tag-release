@@ -3,7 +3,7 @@
 jest.mock('@actions/core', () => ({ info: jest.fn() }))
 
 const fs = require('fs')
-const { updateReadmeBadge } = require('../readme')
+const { updateReadmeBadge } = require('../src/readme')
 
 afterEach(() => jest.restoreAllMocks())
 

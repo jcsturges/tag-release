@@ -12,7 +12,7 @@ const {
   getFirstCommit,
   getCommitsSinceRef,
   getAuthorStats,
-} = require('../git')
+} = require('../src/git')
 
 const SEP = '\x1f'
 

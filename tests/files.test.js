@@ -3,7 +3,7 @@
 jest.mock('@actions/core', () => ({ info: jest.fn() }))
 
 const fs = require('fs')
-const { updateVersionFiles } = require('../files')
+const { updateVersionFiles } = require('../src/files')
 
 afterEach(() => jest.restoreAllMocks())
 
