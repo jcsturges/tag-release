@@ -399,8 +399,9 @@ tag-release/
 Tests live in a top-level `tests/` directory, one file per module. Run them with:
 
 ```bash
-npm test              # run all tests with coverage report
-npm run test:watch    # re-run on file changes during development
+npm test                # run all tests with coverage summary in terminal
+npm run test:coverage   # run all tests and open HTML coverage report in browser
+npm run test:watch      # re-run on file changes during development
 ```
 
 ### Coverage
