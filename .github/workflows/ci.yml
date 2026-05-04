@@ -40,4 +40,5 @@ jobs:
             echo "$OUTPUT"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+          echo "$OUTPUT"
           exit "$EXIT_CODE"
