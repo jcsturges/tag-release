@@ -43,13 +43,13 @@ runs:
   using: composite
   steps:
     - name: Checkout with full history
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         fetch-depth: 0
         token: ${{ inputs.token }}
 
     - name: Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
         node-version-file: ${{ github.action_path }}/.nvmrc
 
