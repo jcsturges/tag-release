@@ -40,7 +40,7 @@ jobs:
     name: Tag & Release
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # create tags, commits, and GitHub Releases
+      contents: write # create tags, commits, and GitHub Releases
       pull-requests: read
 
     steps:

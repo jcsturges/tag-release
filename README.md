@@ -94,13 +94,13 @@ workflow_dispatch (version_type input)
 When `version-type` is `auto` (the default), the action reads every commit
 since the last tag and picks the **highest-impact** bump it finds:
 
-| Commit prefix | Example | Bump |
-|---|---|---|
-| `<type>!:` or `BREAKING CHANGE` | `feat!: redesign auth API` | **major** |
-| `feat:` | `feat: add OAuth login` | **minor** |
-| `fix:` / `perf:` | `fix: null crash on empty body` | **patch** |
-| `chore:` / `docs:` / `style:` / `test:` / `ci:` / `build:` / `refactor:` | `chore: update deps` | none |
-| anything else | `update thing` | none |
+| Commit prefix                                                            | Example                         | Bump      |
+| ------------------------------------------------------------------------ | ------------------------------- | --------- |
+| `<type>!:` or `BREAKING CHANGE`                                          | `feat!: redesign auth API`      | **major** |
+| `feat:`                                                                  | `feat: add OAuth login`         | **minor** |
+| `fix:` / `perf:`                                                         | `fix: null crash on empty body` | **patch** |
+| `chore:` / `docs:` / `style:` / `test:` / `ci:` / `build:` / `refactor:` | `chore: update deps`            | none      |
+| anything else                                                            | `update thing`                  | none      |
 
 If no bumpable commit is found, the action defaults to a **patch** so the
 workflow always produces a new tag. Scopes are supported — e.g. `feat(auth):`.
@@ -109,18 +109,18 @@ workflow always produces a new tag. Scopes are supported — e.g. `feat(auth):`.
 
 ## Inputs
 
-| Input | Required | Default | Description |
-|---|---|---|---|
-| `token` | Yes | — | GitHub token. Must have `contents: write`. Use `secrets.GITHUB_TOKEN`. |
-| `version-type` | No | `auto` | `auto` \| `major` \| `minor` \| `patch` |
-| `default-branch` | No | `main` | Used to build the initial link reference when no previous tag exists |
-| `dry-run` | No | `false` | When `true`, logs the calculated version but makes no changes |
+| Input            | Required | Default | Description                                                            |
+| ---------------- | -------- | ------- | ---------------------------------------------------------------------- |
+| `token`          | Yes      | —       | GitHub token. Must have `contents: write`. Use `secrets.GITHUB_TOKEN`. |
+| `version-type`   | No       | `auto`  | `auto` \| `major` \| `minor` \| `patch`                                |
+| `default-branch` | No       | `main`  | Used to build the initial link reference when no previous tag exists   |
+| `dry-run`        | No       | `false` | When `true`, logs the calculated version but makes no changes          |
 
 ## Outputs
 
-| Output | Description |
-|---|---|
-| `version` | The new version tag, e.g. `v1.5.0` |
+| Output             | Description                                                    |
+| ------------------ | -------------------------------------------------------------- |
+| `version`          | The new version tag, e.g. `v1.5.0`                             |
 | `previous-version` | The previous version tag, or empty string on the first release |
 
 ---
@@ -129,7 +129,7 @@ workflow always produces a new tag. Scopes are supported — e.g. `feat(auth):`.
 
 ```yaml
 permissions:
-  contents: write     # push commits, create tags, create GitHub Releases
+  contents: write # push commits, create tags, create GitHub Releases
   pull-requests: read # read PR titles for release notes (optional but recommended)
 ```
 
@@ -222,16 +222,15 @@ on:
       - main
   workflow_dispatch:
     inputs:
-      version_type:
-        ...
+      version_type: ...
 ```
 
 ### 4. Pin to a specific version (recommended for production)
 
 ```yaml
-- uses: jcsturges/tag-release@v1        # floating major tag
-- uses: jcsturges/tag-release@v1.2.3    # pinned tag
-- uses: jcsturges/tag-release@abc1234   # pinned SHA (most secure)
+- uses: jcsturges/tag-release@v1 # floating major tag
+- uses: jcsturges/tag-release@v1.2.3 # pinned tag
+- uses: jcsturges/tag-release@abc1234 # pinned SHA (most secure)
 ```
 
 ---
@@ -274,6 +273,7 @@ bottom of the file are kept up to date automatically.
 
 ```markdown
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
@@ -281,12 +281,15 @@ All notable changes to this project will be documented in this file.
 ## [v1.5.0] - 2025-06-01
 
 ### Added
+
 - feat: add OAuth login (a1b2c3d)
 
 ### Fixed
+
 - fix: null crash on empty body (e4f5a6b)
 
 ## [v1.4.0] - 2025-05-15
+
 ...
 
 [Unreleased]: https://github.com/owner/repo/compare/v1.5.0...HEAD
@@ -329,10 +332,10 @@ Regenerated from the full git history on every release.
 
 > Auto-generated from git history. Last updated 2025-06-01.
 
-| Author        | Email                  | Commits | Lines Added | Lines Removed |
-|---------------|------------------------|--------:|------------:|--------------:|
-| Jane Smith    | jane@example.com       |      42 |      +3,210 |        -1,450 |
-| Bob Jones     | bob@example.com        |      17 |        +890 |          -302 |
+| Author     | Email            | Commits | Lines Added | Lines Removed |
+| ---------- | ---------------- | ------: | ----------: | ------------: |
+| Jane Smith | jane@example.com |      42 |      +3,210 |        -1,450 |
+| Bob Jones  | bob@example.com  |      17 |        +890 |          -302 |
 ```
 
 ### README.md badge
@@ -383,14 +386,19 @@ tag-release/
 
 ## Dependencies
 
-| Package | Type | Purpose |
-|---|---|---|
-| `@actions/core` | runtime | Logging, input/output, and failure handling |
-| `@actions/exec` | runtime | Running git commands with output capture |
-| `@actions/github` | runtime | Octokit client for creating GitHub Releases |
-| `semver` | runtime | Semver parsing and increment logic |
-| `jest` | dev | Test runner and coverage reporter |
-| `@vercel/ncc` | dev | Bundles the action to `dist/` for distribution |
+| Package                  | Type    | Purpose                                           |
+| ------------------------ | ------- | ------------------------------------------------- |
+| `@actions/core`          | runtime | Logging, input/output, and failure handling       |
+| `@actions/exec`          | runtime | Running git commands with output capture          |
+| `@actions/github`        | runtime | Octokit client for creating GitHub Releases       |
+| `semver`                 | runtime | Semver parsing and increment logic                |
+| `jest`                   | dev     | Test runner and coverage reporter                 |
+| `@vercel/ncc`            | dev     | Bundles the action to `dist/` for distribution    |
+| `eslint`                 | dev     | JavaScript linter                                 |
+| `@eslint/js`             | dev     | ESLint recommended rule set                       |
+| `eslint-config-prettier` | dev     | Disables ESLint rules that conflict with Prettier |
+| `globals`                | dev     | Environment globals for ESLint flat config        |
+| `prettier`               | dev     | Opinionated code formatter                        |
 
 ---
 
@@ -427,10 +435,10 @@ version.js       |    100%    |   100%   |   100%    |  100%
 Two lines in `release.js` carry `/* istanbul ignore */` comments. Both are dead
 code paths that exist for defensive correctness but are structurally unreachable:
 
-| File | Annotation | Reason |
-|---|---|---|
+| File         | Annotation                                              | Reason                                                                                                                                      |
+| ------------ | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | `release.js` | `/* istanbul ignore next */` on the fallback `for` loop | `groupCommits` has a catch-all that routes every commit to `fixes`, so when `commits` is non-empty the all-groups-empty guard is never true |
-| `release.js` | `/* istanbul ignore else */` on `if (!commits.length)` | Same guard — the false branch (commits non-empty, all groups empty) is unreachable |
+| `release.js` | `/* istanbul ignore else */` on `if (!commits.length)`  | Same guard — the false branch (commits non-empty, all groups empty) is unreachable                                                          |
 
 The thresholds enforced by Jest (configured in `package.json`):
 
@@ -447,6 +455,46 @@ The thresholds enforced by Jest (configured in `package.json`):
 
 Thresholds are intentionally set below 100% so a single untested edge case in
 a new module does not block CI while the author is iterating.
+
+---
+
+## Linting and formatting
+
+The project uses **ESLint 9** (flat config) for linting and **Prettier 3** for formatting.
+
+```bash
+npm run lint          # check for lint errors
+npm run lint:fix      # auto-fix lint errors
+npm run format        # reformat all files in place
+npm run format:check  # check formatting without writing
+```
+
+### Prettier
+
+Configured in `.prettierrc`:
+
+| Option          | Value    |
+| --------------- | -------- |
+| `semi`          | `true`   |
+| `singleQuote`   | `false`  |
+| `trailingComma` | `"none"` |
+| `printWidth`    | `100`    |
+
+`.prettierignore` excludes `dist/`, `coverage/`, `node_modules/`, and lock files.
+
+### ESLint
+
+Configured in `eslint.config.js` using the flat config format. Key rules:
+
+| Rule             | Setting                                     |
+| ---------------- | ------------------------------------------- |
+| `no-var`         | `error`                                     |
+| `prefer-const`   | `error`                                     |
+| `no-unused-vars` | `error` (args prefixed with `_` are exempt) |
+
+`eslint-config-prettier` is applied last to disable any formatting rules that
+would conflict with Prettier. Jest globals (`describe`, `test`, `expect`, etc.)
+are scoped to `tests/**/*.js` only.
 
 ---
 

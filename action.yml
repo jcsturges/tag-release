@@ -29,7 +29,7 @@ inputs:
       When "true", calculates and logs the new version but does not create
       commits, tags, or GitHub Releases.
     required: false
-    default: 'false'
+    default: "false"
 
 outputs:
   version:
