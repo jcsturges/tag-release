@@ -21,10 +21,7 @@
   },
   "overrides": {
     "undici": "^7.0.0",
-    "glob": "^13.0.0",
-    "test-exclude": {
-      "glob": "^9.0.0"
-    }
+    "glob": "^13.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.0.0",
@@ -37,6 +34,7 @@
   },
   "jest": {
     "testEnvironment": "node",
+    "coverageProvider": "v8",
     "testMatch": [
       "**/tests/**/*.test.js"
     ],
